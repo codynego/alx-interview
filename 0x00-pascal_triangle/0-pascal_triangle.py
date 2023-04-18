@@ -8,6 +8,10 @@ def pascal_triangle(n):
     """
     pascal_triangle = [[1]]
 
+
+    if int(n) <= 0:
+        return list()
+
     for i in range(n - 1):
         if len(pascal_triangle[-1]) > 1:
             last_item = pascal_triangle[-1]
