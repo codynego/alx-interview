@@ -13,9 +13,9 @@ def minOperations(n: int) -> int:
     Return:
         returns an int
     """
-    operation_count: int = 0
-    characters: str = "H"
-    clipboard: str = ""
+    operation_count = 0
+    characters = "H"
+    clipboard = ""
 
     for i in range(n):
         if len(characters) > n:
