@@ -8,9 +8,9 @@ Minimum Operations
 def minOperations(n: int) -> int:
     """
     write a method that calculates the fewest number of
-    operations needed to result in exactly n H characters in the file
-
-    Return:
+    operations needed to result in exactly n
+    H characters in the file
+    Returns:
         returns an int
     """
     operation_count = 0
