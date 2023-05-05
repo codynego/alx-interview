@@ -17,7 +17,7 @@ def minOperations(n: int) -> int:
     clipboard = ""
 
     for i in range(n):
-        if len(characters) > n:
+        if len(characters) > n or n <= 1:
             return (0)
 
         if len(characters) == n:
