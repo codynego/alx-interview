@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-
 """
 Minimum Operations
 """
 
 
-def minOperations(n):
+def minOperations(n: int) -> int:
     """
     write a method that calculates the fewest number of
     operations needed to result in exactly n
