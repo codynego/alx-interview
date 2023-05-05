@@ -33,4 +33,4 @@ def minOperations(n):
                 characters += clipboard
                 operation_count += 1
 
-    return(operation_count)
+    return(int(operation_count))
