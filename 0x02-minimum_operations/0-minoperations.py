@@ -5,7 +5,7 @@ Minimum Operations
 """
 
 
-def minOperations(n: int) -> int:
+def minOperations(n):
     """
     write a method that calculates the fewest number of
     operations needed to result in exactly n
@@ -19,7 +19,7 @@ def minOperations(n: int) -> int:
 
     for i in range(n):
         if len(characters) > n:
-            return (0)
+            return(0)
 
         if len(characters) == n:
             break
