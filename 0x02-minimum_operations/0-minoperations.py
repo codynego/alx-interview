@@ -18,7 +18,7 @@ def minOperations(n: int) -> int:
 
     for i in range(n):
         if len(characters) > n:
-            return(0)
+            return (0)
 
         if len(characters) == n:
             break
@@ -32,4 +32,4 @@ def minOperations(n: int) -> int:
                 characters += clipboard
                 operation_count += 1
 
-    return(int(operation_count))
+    return (operation_count)
