@@ -1,57 +1,37 @@
 #!/usr/bin/python3
+'''a script that reads stdin line by line and computes metrics'''
 
-"""
-log parsing
-"""
-import re
+
 import sys
 
+cache = {'200': 0, '301': 0, '400': 0, '401': 0,
+         '403': 0, '404': 0, '405': 0, '500': 0}
+total_size = 0
+counter = 0
 
-def validate_input(inputs):
-    pattern = (
-        r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[.+\] "GET /projects/260 '
-        r'HTTP/1\.1" \d{3} \d+$'
-    )
-    match = re.match(pattern, inputs)
-    if match:
-        return True
-    else:
-        return False
+try:
+    for line in sys.stdin:
+        line_list = line.split(" ")
+        if len(line_list) > 4:
+            code = line_list[-2]
+            size = int(line_list[-1])
+            if code in cache.keys():
+                cache[code] += 1
+            total_size += size
+            counter += 1
 
+        if counter == 10:
+            counter = 0
+            print('File size: {}'.format(total_size))
+            for key, value in sorted(cache.items()):
+                if value != 0:
+                    print('{}: {}'.format(key, value))
 
-def log_parser():
-    line_count = 0
-    total_size = 0
-    codes = {}
-    status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
-    try:
-        for line in sys.stdin:
-            if validate_input(line):
-                line_count += 1
-                input_list = line.split("/")
-                filesize = input_list[-1].split(' ')[-1]
-                status_code = input_list[-1].split(' ')[-2]
-                total_size += int(filesize)
-                if status_code in codes:
-                    codes[status_code] += 1
-                else:
-                    codes[status_code] = 0
-                    codes[status_code] += 1
-                if line_count % 10 == 0:
-                    print(f"File size: {total_size}")
-                    for k, v in sorted(codes.items()):
-                        print(f"{k}: {v}")
-            else:
-                continue
-    
-    except KeyboardInterrupt:
-        pass
+except Exception as err:
+    pass
 
-    finally:
-        print("File size:", total_size)
-        for k, v in sorted(codes.items()):
-            print(f"{k}: {v}")
-
-
-if __name__ == "__main__":
-    log_parser()
+finally:
+    print('File size: {}'.format(total_size))
+    for key, value in sorted(cache.items()):
+        if value != 0:
+            print('{}: {}'.format(key, value))
