@@ -24,27 +24,33 @@ def log_parser():
     total_size = 0
     codes = {}
     status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
-    for line in sys.stdin:
-        if validate_input(line):
-            line_count += 1
-            input_list = line.split("/")
-            filesize = input_list[-1].split(' ')[-1]
-            status_code = input_list[-1].split(' ')[-2]
-            total_size += int(filesize)
-            if status_code in codes:
-                codes[status_code] += 1
+    try:
+        for line in sys.stdin:
+            if validate_input(line):
+                line_count += 1
+                input_list = line.split("/")
+                filesize = input_list[-1].split(' ')[-1]
+                status_code = input_list[-1].split(' ')[-2]
+                total_size += int(filesize)
+                if status_code in codes:
+                    codes[status_code] += 1
+                else:
+                    codes[status_code] = 0
+                    codes[status_code] += 1
+                if line_count % 10 == 0:
+                    print(f"File size: {total_size}")
+                    codes = {key: codes[key] for key in sorted(codes)}
+                    for k, v in codes.items():
+                        print(f"{k}: {v}")
             else:
-                codes[status_code] = 0
-                codes[status_code] += 1
-            if line_count == 10:
-                print(f"File size: {total_size}")
-                codes = {key: codes[key] for key in sorted(codes)}
-                for k, v in codes.items():
-                    print(f"{k}: {v}")
-                line_count = 0
-        else:
-            continue
-    return 0
+                continue
+        return 0
+
+    except KeyboardInterrupt:
+        print("File size:", total_size)
+        codes = {key: codes[key] for key in sorted(codes)}
+        for k, v in codes.items():
+            print(f"{k}: {v}")
 
 
 if __name__ == "__main__":
