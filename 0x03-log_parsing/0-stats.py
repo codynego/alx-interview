@@ -45,8 +45,11 @@ def log_parser():
             else:
                 continue
         return 0
+    
+    except Exception as err:
+        pass
 
-    except KeyboardInterrupt:
+    finally:
         print("File size:", total_size)
         codes = {key: codes[key] for key in sorted(codes)}
         for k, v in codes.items():
