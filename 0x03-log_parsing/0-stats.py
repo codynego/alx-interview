@@ -39,19 +39,17 @@ def log_parser():
                     codes[status_code] += 1
                 if line_count % 10 == 0:
                     print(f"File size: {total_size}")
-                    codes = {key: codes[key] for key in sorted(codes)}
-                    for k, v in codes.items():
+                    for k, v in sorted(codes.items()):
                         print(f"{k}: {v}")
             else:
                 continue
     
-    except Exception as err:
+    except KeyboardInterrupt:
         pass
 
     finally:
         print("File size:", total_size)
-        codes = {key: codes[key] for key in sorted(codes)}
-        for k, v in codes.items():
+        for k, v in sorted(codes.items()):
             print(f"{k}: {v}")
 
 
