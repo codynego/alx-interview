@@ -9,6 +9,8 @@ def validUTF8(data):
     """
     check if a data is a valid utf-8 encoding
     """
-    if max(data) > 255:
-        return False
+
+    for i in data:
+        if len(bin(i)[2:]) > 8:
+            return False
     return True
